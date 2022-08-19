@@ -1,0 +1,21 @@
+1. ST_Intersects()
+select landuse.type, railways.type, landuse.geom, railways.geom 
+from  railways, landuse
+where railways.type = 'rail' 
+and st_intersects (railways.geom, landuse.geom)
+
+2.ST_DWithin()
+select waterways.name, waterways.geom 
+from  waterways, roads
+where waterways.type = 'river'
+and st_dwithin (waterways.geom, roads.geom, 1000)
+
+3.ST_Crosses() 
+SELECT waterways.type, railways.type, railways.geom , waterways.geom
+FROM waterways, railways
+WHERE waterways.type= 'stream' and ST_Crosses(railways.geom, waterways.geom)
+
+4.ST_Touches()
+SELECT landuse.type, roads.type, roads.geom , landuse.geom
+FROM landuse, roads
+WHERE ST_Touches(landuse.geom, roads.geom)
